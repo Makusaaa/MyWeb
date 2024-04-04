@@ -23,7 +23,7 @@
   </head>
   <body>
     ayam ayam apa yang ayam?<br>
-    ayam so cool... anjay<br>
+    ayam so cool...<br>
     -Makusa<br><br>
     Mau baca manga? nih tinggal pilih:<br>
     <form action="./index.php" method="post">
