@@ -1,4 +1,5 @@
 <?php
+    include './manga/chapterformating.php';
     if(isset($_POST['manga'])){
         $html = file_get_contents('https://manga4life.com/manga/'.$_POST['manga']);
         $json = substr($html,strpos($html,"vm.Chapters = [")+strlen("vm.Chapters = [")-1);
