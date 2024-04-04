@@ -17,10 +17,10 @@
     function imgformat($e){
         $chapter = sprintf('%04d',$e);
         $odd = $e[strlen($e)-1];
-        if($odd == "0"){
-            return $chapter;
+        if(str_contains($e,'.')){
+            return $chapter.'.'.$odd;
         }
-        return $chapter.'.'.$odd;
+        return $chapter;
     }
 
     function showformat($e){
