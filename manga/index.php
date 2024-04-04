@@ -2,14 +2,14 @@
     include './chapterformating.php';
     $name = $_GET['name'];
     $chapter = $_GET['chapter'];
-    $html = file_get_contents("https://www.manga4life.com/read-online/$name".linkformat($chapter));
+    $html = file_get_contents("https://www.manga4life.com/read-online/$name-chapter-".$chapter);
     $chapters = substr($html,strpos($html,"vm.CHAPTERS = [")+strlen("vm.CHAPTERS = [")-1);
     $chapters = json_decode(substr($chapters,0,strpos($chapters,']')+1));
     $source = substr($html,strpos($html,"vm.CurPathName = \"")+strlen("vm.CurPathName = \""));
     $source = substr($source,0,strpos($source,"\""));
     $chapindex = 0;
     foreach($chapters as $ch){
-        if($ch->Chapter == $chapter){
+        if(showformat($ch->Chapter) == $chapter){
             $pages = (int)$ch->Page;
             break;
         }
@@ -101,13 +101,13 @@
     </div>
     <div id="fullpage">
         <div class="tab">
-            <a class="prev button" href="<?php if($chapindex != 0){ echo "/manga/?name=$name&chapter=".$chapters[$chapindex-1]->Chapter; }?>">
+            <a class="prev button" href="<?php if($chapindex != 0){ echo "/manga/?name=$name&chapter=".showformat($chapters[$chapindex-1]->Chapter); }?>">
                 <span><?php if($chapindex != 0){ echo 'PREV'; }?></span>
             </a>
             <div class="title" action="javascript:gotopage()">
-                <span id="chapter">Chapter <?=showformat($chapter)?></span>
+                <span id="chapter">Chapter <?=$chapter?></span>
             </div>
-            <a class="next button" href="<?php if($chapindex != count($chapters)-1){ echo "/manga/?name=$name&chapter=".$chapters[$chapindex+1]->Chapter; }?>">
+            <a class="next button" href="<?php if($chapindex != count($chapters)-1){ echo "/manga/?name=$name&chapter=".showformat($chapters[$chapindex+1]->Chapter); }?>">
                 <span><?php if($chapindex != count($chapters)-1){ echo 'NEXT'; }?></span>
             </a>
         </div>

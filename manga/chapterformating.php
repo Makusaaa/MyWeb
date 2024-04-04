@@ -15,7 +15,7 @@
     }
 
     function imgformat($e){
-        $chapter = substr($e,1,strlen($e)-2);
+        $chapter = sprintf('%04d',$e);
         $odd = $e[strlen($e)-1];
         if($odd == "0"){
             return $chapter;
