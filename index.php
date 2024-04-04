@@ -2,10 +2,9 @@
     if(isset($_POST['manga'])){
         $html = file_get_contents('https://manga4life.com/manga/'.$_POST['manga']);
         $json = substr($html,strpos($html,"vm.Chapters = [")+strlen("vm.Chapters = [")-1);
-        $data = json_decode(substr($json,0,strpos($json,']')+1));
-        echo($data[0]->Chapter);
-
-        header('Location: '.'./manga?name='.$_POST['manga'].'&chapter=1');
+        $json = json_decode(substr($json,0,strpos($json,']')+1));
+        $chap1 = $json[count($json)-1]->Chapter;
+        header('Location: '.'./manga?name='.$_POST['manga'].'&chapter='.$chap1);
     }
     $json = file_get_contents('https://manga4life.com/_search.php');
     $obj = json_decode($json);
