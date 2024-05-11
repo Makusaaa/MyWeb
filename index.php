@@ -1,11 +1,11 @@
 <?php
-    include './manga/chapterformating.php';
+    include './mangalife/chapterformating.php';
     if(isset($_POST['manga'])){
         $html = file_get_contents('https://manga4life.com/manga/'.$_POST['manga']);
         $json = substr($html,strpos($html,"vm.Chapters = [")+strlen("vm.Chapters = [")-1);
         $json = json_decode(substr($json,0,strpos($json,']')+1));
         $chap1 = $json[count($json)-1]->Chapter;
-        header('Location: '.'./manga?name='.$_POST['manga'].'&chapter='.showformat($chap1));
+        header('Location: '.'./mangalife?name='.$_POST['manga'].'&chapter='.showformat($chap1));
     }
     $json = file_get_contents('https://manga4life.com/_search.php');
     $obj = json_decode($json);
@@ -22,21 +22,22 @@
     <title>Makusa</title>
   </head>
   <body>
-    ayam ayam apa yang ayam?<br>
-    ayam so cool...<br>
-    -Makusa<br><br>
-    Mau baca manga? nih tinggal pilih:<br>
+    Personal Manga Web Scraper<br>
+    By Makusa<br><br>
+    
     <form action="./index.php" method="post">
-        <select name="manga" class="selectpicker" data-live-search="true">
-            <option value="">cari manga</option>
-            <?php
-                    foreach($obj as $m){ ?>
-                        <option value="<?=$m->i?>"><?=$m->s?></option>                        
-            <?php   } ?>
-        </select>
-        <button type="submit" class="btn btn-light">Baca!</button>
+      <p style="margin-bottom: 0px; display: block;">Manga4Life</p>
+      <select name="manga" class="selectpicker" data-live-search="true">
+          <option value="">cari manga</option>
+          <?php
+                  foreach($obj as $m){ ?>
+                      <option value="<?=$m->i?>"><?=$m->s?></option>                        
+          <?php   } ?>
+      </select>
+      <button type="submit" class="btn btn-light">Baca!</button>
     </form>
-
+    <br>
+    <a href="./mangadex/index.php">Mangadex</a><span> on development</span>
 
     <!-- Optional JavaScript -->
     <script>

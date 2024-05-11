@@ -7,6 +7,16 @@
     $chapters = json_decode(substr($chapters,0,strpos($chapters,']')+1));
     $source = substr($html,strpos($html,"vm.CurPathName = \"")+strlen("vm.CurPathName = \""));
     $source = substr($source,0,strpos($source,"\""));
+    $linkname = substr($html,strpos($html,"vm.CurChapter = {\"")+strlen("vm.CurChapter = {\""));
+    $linkname = substr($linkname,0,strpos($linkname,"}"));
+    $linkname = substr($linkname,strpos($linkname,"Directory\":\"")+strlen("Directory\":\""));
+    $linkname = substr($linkname,0,strpos($linkname,"\""));
+    if(strlen($linkname)!=0){
+        $linkname = $name.'/'.$linkname;
+    }else{
+        $linkname = $name;
+    }
+    // https://scans.lastation.us/mangalife/Golden-Boy/Part1/0000-001.png
     $chapindex = 0;
     foreach($chapters as $ch){
         if(showformat($ch->Chapter) == $chapter){
@@ -101,27 +111,27 @@
     </div>
     <div id="fullpage">
         <div class="tab">
-            <a class="prev button" href="<?php if($chapindex != 0){ echo "/manga/?name=$name&chapter=".showformat($chapters[$chapindex-1]->Chapter); }?>">
+            <a class="prev button" href="<?php if($chapindex != 0){ echo "/mangalife/?name=$name&chapter=".showformat($chapters[$chapindex-1]->Chapter); }?>">
                 <span><?php if($chapindex != 0){ echo 'PREV'; }?></span>
             </a>
             <div class="title" action="javascript:gotopage()">
                 <span id="chapter">Chapter <?=$chapter?></span>
             </div>
-            <a class="next button" href="<?php if($chapindex != count($chapters)-1){ echo "/manga/?name=$name&chapter=".showformat($chapters[$chapindex+1]->Chapter); }?>">
+            <a class="next button" href="<?php if($chapindex != count($chapters)-1){ echo "/mangalife/?name=$name&chapter=".showformat($chapters[$chapindex+1]->Chapter); }?>">
                 <span><?php if($chapindex != count($chapters)-1){ echo 'NEXT'; }?></span>
             </a>
         </div>
         <div id="container">
             <?php for($i=1;$i<=$chapters[$chapindex]->Page;$i++){ ?>
-                <img class="page" id="" src="<?="https://$source/manga/$name/".imgformat($chapter)."-".sprintf('%03d',$i).".png"?>" alt="">
+                <img class="page" id="" src="<?="https://$source/manga/$linkname/".imgformat($chapter)."-".sprintf('%03d',$i).".png"?>" alt="">
             <?php } ?>
         </div>
         <div class="tab">
-            <a class="prev button" href="">
-                <span>PREV</span>
+            <a class="prev button" href="<?php if($chapindex != 0){ echo "/mangalife/?name=$name&chapter=".showformat($chapters[$chapindex-1]->Chapter); }?>">
+                <span><?php if($chapindex != 0){ echo 'PREV'; }?></span>
             </a>
-            <a class="next button" href="">
-                <span>NEXT</span>
+            <a class="next button" href="<?php if($chapindex != count($chapters)-1){ echo "/mangalife/?name=$name&chapter=".showformat($chapters[$chapindex+1]->Chapter); }?>">
+                <span><?php if($chapindex != count($chapters)-1){ echo 'NEXT'; }?></span>
             </a>
         </div>
     </div>
