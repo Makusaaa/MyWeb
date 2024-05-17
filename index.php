@@ -37,7 +37,7 @@
       <button type="submit" class="btn btn-light">Baca!</button>
     </form>
     <br>
-    <a href="./mangadex/index.php">Mangadex</a><span> on development</span>
+    <a href="./mangadex/index.php">Mangadex</a><span> on progress development</span>
 
     <!-- Optional JavaScript -->
     <script>
